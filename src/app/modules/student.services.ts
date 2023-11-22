@@ -38,10 +38,24 @@ const isDeletedStudentData=async(id:string)=>{
  return result;
 
 }
+
+const isUpdateStudentInformation= async(_id:string,data:object)=>{
+ //{ _id: ObjectId("655c64022a66ff5ff37724f3") }
+  const filter={_id}
+  const updateData={
+    $set:{...data}
+  }
+  const result= await Student.updateOne(filter,updateData,{upsert:true});
+  return result;
+
+  
+
+}
 export const StudentService={
     createStudentIntoDb,
     getallStudentData,
     specificStudentData,
-    isDeletedStudentData
+    isDeletedStudentData,
+    isUpdateStudentInformation
 
 }
