@@ -3,6 +3,7 @@ import { StudentService } from "./student.services";
 import TStudentValidationSchema from "./student.zod.validations";
 
 
+
 // create student 
 const createStudent= async(req:Request,res:Response)=>{
 
@@ -66,9 +67,34 @@ const isDeletedUpdateOne= async(req:Request,res:Response)=>{
     }
 }
 
+//updateStudent Details 
+const UpdateStudentDetails=async(req:Request,res:Response)=>{
+
+   try{
+    const {id}=req.params;
+    const data=req.body;
+
+    const result=await StudentService.isUpdateStudentInformation(id,data);
+    res.status(200).send({success:true,message:'successfully updated the student data',data:result});
+   }
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   catch(error:any){
+    res.status(500).send({success:false,message:'some thing went wrong',errorMessage:error.message})
+   }
+    
+
+   
+
+
+}
+
+
+
 export const StudentController={
     createStudent,
     findAllStudend,
     specificStudentFind,
-    isDeletedUpdateOne
+    isDeletedUpdateOne,
+    UpdateStudentDetails
+   
 }
